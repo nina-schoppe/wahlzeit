@@ -69,7 +69,7 @@ public class SphericCoordinate extends AbstractCoordinate {
      * @return
      */
     @Override
-    public CartesianCoordinate asCartesianCoordinate() {
+    public CartesianCoordinate asCartesianCoordinate() throws ArithmeticException {
         double x = radius * Math.sin(phi) * Math.cos(theta);
         double y = radius * Math.sin(phi) * Math.sin(theta);
         double z = radius * Math.cos(phi);

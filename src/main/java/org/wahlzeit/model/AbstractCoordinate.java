@@ -7,10 +7,10 @@ public abstract class AbstractCoordinate implements Coordinate {
     private final double EPSILON = 0.001;
 
     @Override
-    public abstract SphericCoordinate asSphericCoordinate();
+    public abstract SphericCoordinate asSphericCoordinate() throws ArithmeticException;
 
     @Override
-    public abstract CartesianCoordinate asCartesianCoordinate();
+    public abstract CartesianCoordinate asCartesianCoordinate() throws ArithmeticException;
 
     /**
      * 

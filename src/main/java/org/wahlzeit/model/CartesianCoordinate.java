@@ -2,6 +2,8 @@ package org.wahlzeit.model;
 
 public class CartesianCoordinate extends AbstractCoordinate {
 
+    private final double EPSILON = 0.0001;
+
     /**
      * The x, y, z components of the CartesianCoordinate
      */
@@ -65,10 +67,15 @@ public class CartesianCoordinate extends AbstractCoordinate {
      * @return
      */
     @Override
-    public SphericCoordinate asSphericCoordinate() {
-        double radius = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
-        double theta = Math.acos(z / radius);
+    public SphericCoordinate asSphericCoordinate() throws ArithmeticException {
         double phi;
+        double radius = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
+
+        if(radius <= EPSILON) {
+            return new SphericCoordinate(0, 0, 0);
+        }
+
+        double theta = Math.acos(z / radius);
         if(x > 0) {
             phi = Math.atan(y / x);
         } else if(x < 0) {
