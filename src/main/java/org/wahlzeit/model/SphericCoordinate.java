@@ -66,6 +66,23 @@ public class SphericCoordinate extends AbstractCoordinate {
 
     /**
      * 
+     */
+    @Override
+    public double getCentralAngle(Coordinate coordinate) {
+
+        SphericCoordinate c = coordinate.asSphericCoordinate();
+        
+        double deltaTheta = Math.abs(theta - c.theta);
+        double phi1 = phi;
+        double phi2 = c.phi;
+
+        double centralAngle = Math.acos(Math.sin(phi1) * Math.sin(phi2) + Math.cos(phi1) * Math.cos(phi2) * Math.cos(deltaTheta));
+
+        return centralAngle;
+    }
+
+    /**
+     * 
      * @return
      */
     @Override

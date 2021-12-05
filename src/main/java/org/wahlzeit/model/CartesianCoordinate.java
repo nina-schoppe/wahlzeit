@@ -2,7 +2,7 @@ package org.wahlzeit.model;
 
 public class CartesianCoordinate extends AbstractCoordinate {
 
-    private final double EPSILON = 0.0001;
+    private final double EPSILON = 0.001;
 
     /**
      * The x, y, z components of the CartesianCoordinate
@@ -60,6 +60,20 @@ public class CartesianCoordinate extends AbstractCoordinate {
     @Override
     public CartesianCoordinate asCartesianCoordinate() {
         return this;
+    }
+
+    /**
+     * 
+     */
+    @Override
+    public double getCartesianDistance(Coordinate coordinate) {
+
+        CartesianCoordinate c = coordinate.asCartesianCoordinate();
+
+        double xDistSq = Math.pow(x - c.x, 2);
+        double yDistSq = Math.pow(y - c.y, 2);
+        double zDistSq = Math.pow(z - c.z, 2);
+        return Math.sqrt(xDistSq + yDistSq + zDistSq);
     }
 
     /**
