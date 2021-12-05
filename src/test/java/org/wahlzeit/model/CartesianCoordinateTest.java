@@ -9,7 +9,7 @@ import static org.junit.Assert.assertTrue;
 public class CartesianCoordinateTest {
 
     @Test
-    public void testCartesianCoordinate() {
+    public void testConstructor() {
         double x = 1.1;
         double y = 3;
         double z = 2.2;
@@ -17,6 +17,11 @@ public class CartesianCoordinateTest {
         assertEquals(x, c.getX(), 0);
         assertEquals(y, c.getY(), 0);
         assertEquals(z, c.getZ(), 0);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void testConstructorPrecondition() {
+        new CartesianCoordinate(Double.NaN, 1, 0);
     }
 
     @Test
@@ -63,5 +68,18 @@ public class CartesianCoordinateTest {
         assertEquals(0.7854, c2.getPhi(), 0.0001);
         assertEquals(0.9553, c2.getTheta(), 0.0001);
         assertEquals(1.732, c2.getRadius(), 0.0001);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void testGetCartesianDistancePrecondition() {
+        CartesianCoordinate c = new CartesianCoordinate(1, 2, 3);
+        c.getCartesianDistance(null);
+    }
+
+
+    @Test(expected = AssertionError.class)
+    public void testGetCentralAnglePrecondition() {
+        CartesianCoordinate c = new CartesianCoordinate(1, 2, 3);
+        c.getCentralAngle(null);
     }
 }

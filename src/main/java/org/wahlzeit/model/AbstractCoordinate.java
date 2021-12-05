@@ -39,7 +39,6 @@ public abstract class AbstractCoordinate implements Coordinate {
             return false;
         }
         return this.isEqual((Coordinate) object);
-        
     }
 
     /**
@@ -50,19 +49,13 @@ public abstract class AbstractCoordinate implements Coordinate {
         CartesianCoordinate cartesianCoordinate = this.asCartesianCoordinate();
         return Objects.hash(cartesianCoordinate.getX(), cartesianCoordinate.getY(), cartesianCoordinate.getZ());
     }
+
     /**
      * 
      */
     @Override
     public double getCartesianDistance(Coordinate coordinate) {
-
-        CartesianCoordinate c1 = this.asCartesianCoordinate();
-        CartesianCoordinate c2 = coordinate.asCartesianCoordinate();
-
-        double xDistSq = Math.pow(c1.getX() - c2.getX(), 2);
-        double yDistSq = Math.pow(c1.getY() - c2.getY(), 2);
-        double zDistSq = Math.pow(c1.getZ() - c2.getZ(), 2);
-        return Math.sqrt(xDistSq + yDistSq + zDistSq);
+        return asCartesianCoordinate().getCartesianDistance(coordinate);
     }
         
     /**
@@ -72,16 +65,6 @@ public abstract class AbstractCoordinate implements Coordinate {
      */
     @Override
     public double getCentralAngle(Coordinate coordinate) {
-
-        SphericCoordinate c1 = this.asSphericCoordinate();
-        SphericCoordinate c2 = coordinate.asSphericCoordinate();
-        
-        double deltaTheta = Math.abs(c1.getTheta() - c2.getTheta());
-        double phi1 = c1.getPhi();
-        double phi2 = c2.getPhi();
-
-        double centralAngle = Math.acos(Math.sin(phi1) * Math.sin(phi2) + Math.cos(phi1) * Math.cos(phi2) * Math.cos(deltaTheta));
-
-        return centralAngle;
+        return asSphericCoordinate().getCentralAngle(coordinate);
     }
 }

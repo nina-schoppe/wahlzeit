@@ -2,7 +2,7 @@ package org.wahlzeit.model;
 
 public class CartesianCoordinate extends AbstractCoordinate {
 
-    private final double EPSILON = 0.0001;
+    private final double EPSILON = 0.001;
 
     /**
      * The x, y, z components of the CartesianCoordinate
@@ -16,9 +16,21 @@ public class CartesianCoordinate extends AbstractCoordinate {
      * @methodtype constructor
      */
     public CartesianCoordinate(double x, double y, double z) {
+        assert !Double.isNaN(x);
+        assert !Double.isNaN(y);
+        assert !Double.isNaN(z);
+
         this.x = x;
         this.y = y;
         this.z = z;
+
+        assertClassInvariants();
+    }
+
+    private void assertClassInvariants() {
+        assert !Double.isNaN(x);
+        assert !Double.isNaN(y);
+        assert !Double.isNaN(z);
     }
 
     /**
@@ -50,6 +62,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
      */
     @Override
     public String toString() {
+        assertClassInvariants();
         return "cartesian coordinate: x=" + x + ", y=" + y + ", z=" + z;
     }
 
@@ -60,6 +73,27 @@ public class CartesianCoordinate extends AbstractCoordinate {
     @Override
     public CartesianCoordinate asCartesianCoordinate() {
         return this;
+    }
+
+    /**
+     * 
+     */
+    @Override
+    public double getCartesianDistance(Coordinate coordinate) {
+
+        assert coordinate != null;
+
+        CartesianCoordinate c = coordinate.asCartesianCoordinate();
+
+        double xDistSq = Math.pow(x - c.x, 2);
+        double yDistSq = Math.pow(y - c.y, 2);
+        double zDistSq = Math.pow(z - c.z, 2);
+        double dist = Math.sqrt(xDistSq + yDistSq + zDistSq);
+
+        assert !Double.isNaN(dist);
+        assert dist >= 0;
+
+        return dist;
     }
 
     /**
@@ -83,6 +117,11 @@ public class CartesianCoordinate extends AbstractCoordinate {
         } else {
             phi = Math.PI / 2;
         }
+
+        assert !Double.isNaN(phi) && Math.abs(phi) <= Math.PI;
+        assert !Double.isNaN(theta) && theta >= 0 && theta <= Math.PI;
+        assert !Double.isNaN(radius) && radius >= 0;
+
         return new SphericCoordinate(phi, theta, radius);
     }
 }
