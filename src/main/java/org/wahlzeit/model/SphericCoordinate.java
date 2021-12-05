@@ -14,10 +14,9 @@ public class SphericCoordinate extends AbstractCoordinate {
      * @param radius
      */
     public SphericCoordinate(double phi, double theta, double radius) {
-        assert !Double.isNaN(radius);
-        assert radius >= 0;
-        assert !Double.isNaN(phi);
-        assert !Double.isNaN(theta);
+        assert !Double.isNaN(phi) && Math.abs(phi) <= Math.PI;
+        assert !Double.isNaN(theta) && theta >= 0 && theta <= Math.PI;
+        assert !Double.isNaN(radius) && radius >= 0;
 
         this.phi = phi;
         this.theta = theta;
@@ -27,9 +26,9 @@ public class SphericCoordinate extends AbstractCoordinate {
     }
 
     private void assertClassInvariants() {
-        assert !Double.isNaN(phi);
-        assert !Double.isNaN(theta);
-        assert !Double.isNaN(radius);
+        assert !Double.isNaN(phi) && Math.abs(phi) <= Math.PI;
+        assert !Double.isNaN(theta) && theta >= 0 && theta <= Math.PI;
+        assert !Double.isNaN(radius) && radius >= 0;
     }
 
     /**
@@ -65,6 +64,7 @@ public class SphericCoordinate extends AbstractCoordinate {
      */
     @Override
     public String toString() {
+        assertClassInvariants();
         return "spheric coordinate: phi=" + phi + ", theta=" + theta + ", radius=" + radius;
     }
 
@@ -94,6 +94,7 @@ public class SphericCoordinate extends AbstractCoordinate {
         double centralAngle = Math.acos(Math.sin(phi1) * Math.sin(phi2) + Math.cos(phi1) * Math.cos(phi2) * Math.cos(deltaTheta));
 
         assert !Double.isNaN(centralAngle);
+        assert centralAngle >= 0 && centralAngle <= 2 * Math.PI;
 
         return centralAngle;
     }

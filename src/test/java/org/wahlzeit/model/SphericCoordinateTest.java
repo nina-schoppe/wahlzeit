@@ -31,9 +31,9 @@ public class SphericCoordinateTest {
 
     @Test
     public void testGetCartesianDistance() {
-        SphericCoordinate c1 = new SphericCoordinate(1.3, -2.1, 0.5);
-        SphericCoordinate c2 = new SphericCoordinate(1.3, -2.1, 0.5);
-        SphericCoordinate c3 = new SphericCoordinate(1.3, -2.1, 1.5);
+        SphericCoordinate c1 = new SphericCoordinate(1.3, 2.1, 0.5);
+        SphericCoordinate c2 = new SphericCoordinate(1.3, 2.1, 0.5);
+        SphericCoordinate c3 = new SphericCoordinate(1.3, 2.1, 1.5);
         assertEquals(0, c1.getCartesianDistance(c2), 0);
         assertEquals(1, c1.getCartesianDistance(c3), 0.0001);
     }
@@ -42,7 +42,7 @@ public class SphericCoordinateTest {
     public void testIsEqual() {
         SphericCoordinate c1 = new SphericCoordinate(1, 2, 3);
         SphericCoordinate c2 = new SphericCoordinate(1, 2, 3);
-        SphericCoordinate c3 = new SphericCoordinate(-3, 5, 3);
+        SphericCoordinate c3 = new SphericCoordinate(-3, 1, 3);
         SphericCoordinate c4 = new SphericCoordinate(1, 3, 0);
         CartesianCoordinate c5 = new CartesianCoordinate(0, 0, 0);
         SphericCoordinate c6 = null;
@@ -58,7 +58,7 @@ public class SphericCoordinateTest {
     public void testEquals() {
         SphericCoordinate c1 = new SphericCoordinate(2, 1, 0.3);
         SphericCoordinate c2 = new SphericCoordinate(2, 1, 0.3);
-        SphericCoordinate c3 = new SphericCoordinate(-3.1, 5.2, 3);
+        SphericCoordinate c3 = new SphericCoordinate(-3.1, 1.2, 3);
         SphericCoordinate c4 = new SphericCoordinate(1, 3, 0);
         CartesianCoordinate c5 = new CartesianCoordinate(0, 0, 0);
         Coordinate c6 = null;
@@ -74,10 +74,10 @@ public class SphericCoordinateTest {
     @Test
     public void testGetCentralAngle() {
         SphericCoordinate c1 = new SphericCoordinate(Math.PI, Math.PI, 1);
-        SphericCoordinate c2 = new SphericCoordinate(2 * Math.PI, Math.PI, 1);
+        SphericCoordinate c2 = new SphericCoordinate(1, Math.PI, 1);
         CartesianCoordinate c3 = new CartesianCoordinate(0, 0, 1);
         SphericCoordinate c4 = new SphericCoordinate(Math.PI, 0, 1);
-        assertEquals(Math.PI, c1.getCentralAngle(c2), 0.0001);
+        assertEquals(2.14159, c1.getCentralAngle(c2), 0.0001);
         assertEquals(1.5708, c4.getCentralAngle(c3), 0.0001);
     }
 
