@@ -16,9 +16,21 @@ public class CartesianCoordinate extends AbstractCoordinate {
      * @methodtype constructor
      */
     public CartesianCoordinate(double x, double y, double z) {
+        assert !Double.isNaN(x);
+        assert !Double.isNaN(y);
+        assert !Double.isNaN(z);
+
         this.x = x;
         this.y = y;
         this.z = z;
+
+        assertClassInvariants();
+    }
+
+    private void assertClassInvariants() {
+        assert !Double.isNaN(this.x);
+        assert !Double.isNaN(this.y);
+        assert !Double.isNaN(this.z);
     }
 
     /**
@@ -68,12 +80,18 @@ public class CartesianCoordinate extends AbstractCoordinate {
     @Override
     public double getCartesianDistance(Coordinate coordinate) {
 
+        assert coordinate != null;
+
         CartesianCoordinate c = coordinate.asCartesianCoordinate();
 
         double xDistSq = Math.pow(x - c.x, 2);
         double yDistSq = Math.pow(y - c.y, 2);
         double zDistSq = Math.pow(z - c.z, 2);
-        return Math.sqrt(xDistSq + yDistSq + zDistSq);
+        double dist = Math.sqrt(xDistSq + yDistSq + zDistSq);
+
+        assert !Double.isNaN(dist);
+
+        return dist;
     }
 
     /**
@@ -97,6 +115,11 @@ public class CartesianCoordinate extends AbstractCoordinate {
         } else {
             phi = Math.PI / 2;
         }
+
+        assert !Double.isNaN(radius) && radius >= 0;
+        assert !Double.isNaN(phi);
+        assert !Double.isNaN(theta);
+
         return new SphericCoordinate(phi, theta, radius);
     }
 }
