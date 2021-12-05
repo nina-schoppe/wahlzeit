@@ -9,7 +9,7 @@ import org.junit.Test;
 public class SphericCoordinateTest {
 
     @Test
-    public void testSphericCoordinate() {
+    public void testConstructor() {
         double phi = 1.1;
         double theta = 3;
         double radius = 2.2;
@@ -17,6 +17,16 @@ public class SphericCoordinateTest {
         assertEquals(phi, c.getPhi(), 0);
         assertEquals(theta, c.getTheta(), 0);
         assertEquals(radius, c.getRadius(), 0);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void testConstructorNaN() {
+        new SphericCoordinate(2, Double.NaN, 2);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void testConstructorNegativeRadius() {
+        new SphericCoordinate(2, 1, -2);
     }
 
     @Test
@@ -78,5 +88,17 @@ public class SphericCoordinateTest {
         assertEquals(0.45465, c2.getX(), 0.0001);
         assertEquals(0.7081, c2.getY(), 0.0001);
         assertEquals(0.5403, c2.getZ(), 0.0001);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void testGetCartesianDistancePrecondition() {
+        SphericCoordinate c = new SphericCoordinate(1, 2, 3);
+        c.getCartesianDistance(null);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void testGetCentralAnglePrecondition() {
+        SphericCoordinate c = new SphericCoordinate(1, 2, 3);
+        c.getCentralAngle(null);
     }
 }
