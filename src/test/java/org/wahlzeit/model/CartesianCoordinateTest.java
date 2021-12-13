@@ -19,7 +19,7 @@ public class CartesianCoordinateTest {
         assertEquals(z, c.getZ(), 0);
     }
 
-    @Test(expected = AssertionError.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testConstructorPrecondition() {
         new CartesianCoordinate(Double.NaN, 1, 0);
     }
@@ -70,14 +70,14 @@ public class CartesianCoordinateTest {
         assertEquals(1.732, c2.getRadius(), 0.0001);
     }
 
-    @Test(expected = AssertionError.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testGetCartesianDistancePrecondition() {
         CartesianCoordinate c = new CartesianCoordinate(1, 2, 3);
         c.getCartesianDistance(null);
     }
 
 
-    @Test(expected = AssertionError.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testGetCentralAnglePrecondition() {
         CartesianCoordinate c = new CartesianCoordinate(1, 2, 3);
         c.getCentralAngle(null);

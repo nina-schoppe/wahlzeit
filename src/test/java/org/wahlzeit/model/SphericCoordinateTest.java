@@ -19,12 +19,12 @@ public class SphericCoordinateTest {
         assertEquals(radius, c.getRadius(), 0);
     }
 
-    @Test(expected = AssertionError.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testConstructorNaN() {
         new SphericCoordinate(2, Double.NaN, 2);
     }
 
-    @Test(expected = AssertionError.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testConstructorNegativeRadius() {
         new SphericCoordinate(2, 1, -2);
     }
@@ -90,13 +90,13 @@ public class SphericCoordinateTest {
         assertEquals(0.5403, c2.getZ(), 0.0001);
     }
 
-    @Test(expected = AssertionError.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testGetCartesianDistancePrecondition() {
         SphericCoordinate c = new SphericCoordinate(1, 2, 3);
         c.getCartesianDistance(null);
     }
 
-    @Test(expected = AssertionError.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testGetCentralAnglePrecondition() {
         SphericCoordinate c = new SphericCoordinate(1, 2, 3);
         c.getCentralAngle(null);
