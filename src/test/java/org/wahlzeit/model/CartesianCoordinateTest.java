@@ -1,10 +1,12 @@
 package org.wahlzeit.model;
 
 import org.junit.Test;
+import java.lang.reflect.Field;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 
 public class CartesianCoordinateTest {
 
@@ -19,9 +21,51 @@ public class CartesianCoordinateTest {
         assertEquals(z, c.getZ(), 0);
     }
 
-    @Test(expected = AssertionError.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testConstructorPrecondition() {
         new CartesianCoordinate(Double.NaN, 1, 0);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testAssertClassInvariantsX() {
+        CartesianCoordinate coordinate = new CartesianCoordinate(0, 0, 0);
+        try {
+            Field xField = coordinate.getClass().getDeclaredField("x");
+            xField.setAccessible(true);
+            xField.set(coordinate, Double.NaN);
+            coordinate.assertClassInvariants();
+        } catch(NoSuchFieldException | IllegalAccessException e) {
+            // do nothing
+        }
+
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testAssertClassInvariantsY() {
+        CartesianCoordinate coordinate = new CartesianCoordinate(0, 0, 0);
+        try {
+            Field yField = coordinate.getClass().getDeclaredField("y");
+            yField.setAccessible(true);
+            yField.set(coordinate, Double.NaN);
+            coordinate.assertClassInvariants();
+        } catch(NoSuchFieldException | IllegalAccessException e) {
+            // do nothing
+        }
+
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testAssertClassInvariantsZ() {
+        CartesianCoordinate coordinate = new CartesianCoordinate(0, 0, 0);
+        try {
+            Field zField = coordinate.getClass().getDeclaredField("z");
+            zField.setAccessible(true);
+            zField.set(coordinate, Double.NaN);
+            coordinate.assertClassInvariants();
+        } catch(NoSuchFieldException | IllegalAccessException e) {
+            // do nothing
+        }
+
     }
 
     @Test
@@ -70,14 +114,14 @@ public class CartesianCoordinateTest {
         assertEquals(1.732, c2.getRadius(), 0.0001);
     }
 
-    @Test(expected = AssertionError.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testGetCartesianDistancePrecondition() {
         CartesianCoordinate c = new CartesianCoordinate(1, 2, 3);
         c.getCartesianDistance(null);
     }
 
 
-    @Test(expected = AssertionError.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testGetCentralAnglePrecondition() {
         CartesianCoordinate c = new CartesianCoordinate(1, 2, 3);
         c.getCentralAngle(null);

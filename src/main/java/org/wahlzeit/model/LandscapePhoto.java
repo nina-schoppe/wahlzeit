@@ -16,7 +16,7 @@ public class LandscapePhoto extends Photo {
 	 * 
 	 * @methodtype constructor
 	 */
-    public LandscapePhoto(PhotoId myId) {
+    public LandscapePhoto(PhotoId myId) throws IllegalArgumentException {
         super(myId);
     }
 
@@ -32,7 +32,7 @@ public class LandscapePhoto extends Photo {
 	 * 
 	 * @methodtype constructor
 	 */
-    public LandscapePhoto(PhotoId myId, Location location) {
+    public LandscapePhoto(PhotoId myId, Location location) throws IllegalArgumentException {
         super(myId, location);
     }
 
@@ -40,7 +40,7 @@ public class LandscapePhoto extends Photo {
 	 * 
 	 * @methodtype constructor
 	 */
-    public LandscapePhoto(ResultSet rset) throws SQLException {
+    public LandscapePhoto(ResultSet rset) throws SQLException, IllegalArgumentException {
         super(rset);
     }
     

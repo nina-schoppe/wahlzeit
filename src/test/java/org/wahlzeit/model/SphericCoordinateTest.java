@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+import java.lang.reflect.Field;
 
 public class SphericCoordinateTest {
 
@@ -19,14 +20,53 @@ public class SphericCoordinateTest {
         assertEquals(radius, c.getRadius(), 0);
     }
 
-    @Test(expected = AssertionError.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testConstructorNaN() {
         new SphericCoordinate(2, Double.NaN, 2);
     }
 
-    @Test(expected = AssertionError.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testConstructorNegativeRadius() {
         new SphericCoordinate(2, 1, -2);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testAssertClassInvariantsPhi() {
+        SphericCoordinate coordinate = new SphericCoordinate(0, 0, 0);
+        try {
+            Field phiField = coordinate.getClass().getDeclaredField("phi");
+            phiField.setAccessible(true);
+            phiField.set(coordinate, -4);
+            coordinate.assertClassInvariants();
+        } catch(NoSuchFieldException | IllegalAccessException e) {
+            // do nothing
+        }
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testAssertClassInvariantsTheta() {
+        SphericCoordinate coordinate = new SphericCoordinate(0, 0, 0);
+        try {
+            Field thetaField = coordinate.getClass().getDeclaredField("theta");
+            thetaField.setAccessible(true);
+            thetaField.set(coordinate, 5);
+            coordinate.assertClassInvariants();
+        } catch(NoSuchFieldException | IllegalAccessException e) {
+            // do nothing
+        }
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testAssertClassInvariantsRadius() {
+        SphericCoordinate coordinate = new SphericCoordinate(0, 0, 0);
+        try {
+            Field radiusField = coordinate.getClass().getDeclaredField("radius");
+            radiusField.setAccessible(true);
+            radiusField.set(coordinate, -0.5);
+            coordinate.assertClassInvariants();
+        } catch(NoSuchFieldException | IllegalAccessException e) {
+            // do nothing
+        }
     }
 
     @Test
@@ -90,13 +130,13 @@ public class SphericCoordinateTest {
         assertEquals(0.5403, c2.getZ(), 0.0001);
     }
 
-    @Test(expected = AssertionError.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testGetCartesianDistancePrecondition() {
         SphericCoordinate c = new SphericCoordinate(1, 2, 3);
         c.getCartesianDistance(null);
     }
 
-    @Test(expected = AssertionError.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testGetCentralAnglePrecondition() {
         SphericCoordinate c = new SphericCoordinate(1, 2, 3);
         c.getCentralAngle(null);
