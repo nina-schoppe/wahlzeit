@@ -1,10 +1,12 @@
 package org.wahlzeit.model;
 
 import org.junit.Test;
+import java.lang.reflect.Field;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 
 public class CartesianCoordinateTest {
 
@@ -22,6 +24,48 @@ public class CartesianCoordinateTest {
     @Test(expected = IllegalArgumentException.class)
     public void testConstructorPrecondition() {
         new CartesianCoordinate(Double.NaN, 1, 0);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testAssertClassInvariantsX() {
+        CartesianCoordinate coordinate = new CartesianCoordinate(0, 0, 0);
+        try {
+            Field xField = coordinate.getClass().getDeclaredField("x");
+            xField.setAccessible(true);
+            xField.set(coordinate, Double.NaN);
+            coordinate.assertClassInvariants();
+        } catch(NoSuchFieldException | IllegalAccessException e) {
+            // do nothing
+        }
+
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testAssertClassInvariantsY() {
+        CartesianCoordinate coordinate = new CartesianCoordinate(0, 0, 0);
+        try {
+            Field yField = coordinate.getClass().getDeclaredField("y");
+            yField.setAccessible(true);
+            yField.set(coordinate, Double.NaN);
+            coordinate.assertClassInvariants();
+        } catch(NoSuchFieldException | IllegalAccessException e) {
+            // do nothing
+        }
+
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testAssertClassInvariantsZ() {
+        CartesianCoordinate coordinate = new CartesianCoordinate(0, 0, 0);
+        try {
+            Field zField = coordinate.getClass().getDeclaredField("z");
+            zField.setAccessible(true);
+            zField.set(coordinate, Double.NaN);
+            coordinate.assertClassInvariants();
+        } catch(NoSuchFieldException | IllegalAccessException e) {
+            // do nothing
+        }
+
     }
 
     @Test
