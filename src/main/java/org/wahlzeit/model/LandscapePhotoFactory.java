@@ -61,21 +61,21 @@ public class LandscapePhotoFactory extends PhotoFactory {
 	/**
 	 * @methodtype factory
 	 */
-	public LandscapePhoto createPhoto(PhotoId id) {
+	public LandscapePhoto createPhoto(PhotoId id) throws IllegalArgumentException {
 		return new LandscapePhoto(id);
 	}
 
 	/**
 	 * @methodtype factory
 	 */
-	public LandscapePhoto createPhoto(PhotoId id, Location location) {
+	public LandscapePhoto createPhoto(PhotoId id, Location location) throws IllegalArgumentException {
 		return new LandscapePhoto(id, location);
 	}
 	
 	/**
 	 * @methodtype factory
 	 */
-	public LandscapePhoto createPhoto(ResultSet rs) throws SQLException {
+	public LandscapePhoto createPhoto(ResultSet rs) throws SQLException, IllegalArgumentException {
 		return new LandscapePhoto(rs);
 	}
 }

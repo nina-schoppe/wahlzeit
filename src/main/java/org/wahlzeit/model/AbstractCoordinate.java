@@ -63,7 +63,7 @@ public abstract class AbstractCoordinate implements Coordinate {
      * 
      */
     @Override
-    public double getCartesianDistance(Coordinate coordinate) throws IllegalArgumentException {
+    public double getCartesianDistance(Coordinate coordinate) throws IllegalArgumentException, IllegalStateException {
         assertClassInvariants();
         if(coordinate == null) {
             throw new IllegalArgumentException("Coordinate is not allowed to be null");
@@ -77,7 +77,7 @@ public abstract class AbstractCoordinate implements Coordinate {
      * @return double
      */
     @Override
-    public double getCentralAngle(Coordinate coordinate) throws IllegalArgumentException {
+    public double getCentralAngle(Coordinate coordinate) throws IllegalArgumentException, IllegalStateException {
         assertClassInvariants();
         if(coordinate == null) {
             throw new IllegalArgumentException("Coordinate is not allowed to be null");

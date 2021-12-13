@@ -27,7 +27,7 @@ public class LandscapePhotoManager extends PhotoManager {
 	/**
 	 * 
 	 */
-	protected Photo createObject(ResultSet rset) throws SQLException {
+	protected Photo createObject(ResultSet rset) throws SQLException, IllegalArgumentException {
 		return LandscapePhotoFactory.getInstance().createPhoto(rset);
 	}
 
