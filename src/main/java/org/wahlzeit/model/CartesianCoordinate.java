@@ -15,10 +15,16 @@ public class CartesianCoordinate extends AbstractCoordinate {
      * 
      * @methodtype constructor
      */
-    public CartesianCoordinate(double x, double y, double z) {
-        assert !Double.isNaN(x);
-        assert !Double.isNaN(y);
-        assert !Double.isNaN(z);
+    public CartesianCoordinate(double x, double y, double z) throws IllegalStateException, IllegalArgumentException {
+        if(Double.isNaN(x)) {
+            throw new IllegalArgumentException("x is NaN");
+        }
+        if(Double.isNaN(y)) {
+            throw new IllegalArgumentException("y is NaN");
+        }
+        if(Double.isNaN(z)) {
+            throw new IllegalArgumentException("z is NaN");
+        }
 
         this.x = x;
         this.y = y;
@@ -27,17 +33,24 @@ public class CartesianCoordinate extends AbstractCoordinate {
         assertClassInvariants();
     }
 
-    private void assertClassInvariants() {
-        assert !Double.isNaN(x);
-        assert !Double.isNaN(y);
-        assert !Double.isNaN(z);
+    protected void doAssertClassInvariants() throws IllegalStateException {
+        if(Double.isNaN(x)) {
+            throw new IllegalStateException("x is NaN");
+        }
+        if(Double.isNaN(y)) {
+            throw new IllegalStateException("y is NaN");
+        }
+        if(Double.isNaN(z)) {
+            throw new IllegalStateException("z is NaN");
+        }
     }
 
     /**
 	 * 
 	 * @methodtype get
 	 */
-    public double getX() {
+    public double getX() throws IllegalStateException {
+        assertClassInvariants();
         return x;
     }
 
@@ -45,7 +58,8 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * 
 	 * @methodtype get
 	 */
-    public double getY() {
+    public double getY() throws IllegalStateException {
+        assertClassInvariants();
         return y;
     }
 
@@ -53,7 +67,8 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * 
 	 * @methodtype get
 	 */
-    public double getZ() {
+    public double getZ() throws IllegalStateException {
+        assertClassInvariants();
         return z;
     }
 
@@ -61,7 +76,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
      * 
      */
     @Override
-    public String toString() {
+    public String toString() throws IllegalStateException {
         assertClassInvariants();
         return "cartesian coordinate: x=" + x + ", y=" + y + ", z=" + z;
     }
@@ -71,7 +86,8 @@ public class CartesianCoordinate extends AbstractCoordinate {
      * @return
      */
     @Override
-    public CartesianCoordinate asCartesianCoordinate() {
+    public CartesianCoordinate asCartesianCoordinate() throws IllegalStateException {
+        assertClassInvariants();
         return this;
     }
 
@@ -79,7 +95,11 @@ public class CartesianCoordinate extends AbstractCoordinate {
      * 
      */
     @Override
-    public double getCartesianDistance(Coordinate coordinate) {
+    public double getCartesianDistance(Coordinate coordinate) throws IllegalStateException, IllegalArgumentException {
+        assertClassInvariants();
+        if(coordinate == null) {
+            throw new IllegalArgumentException("Coordinate is not allowed to be null");
+        }
 
         assert coordinate != null;
 
@@ -101,7 +121,9 @@ public class CartesianCoordinate extends AbstractCoordinate {
      * @return
      */
     @Override
-    public SphericCoordinate asSphericCoordinate() throws ArithmeticException {
+    public SphericCoordinate asSphericCoordinate() throws ArithmeticException, IllegalStateException {
+        assertClassInvariants();
+
         double phi;
         double radius = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
 

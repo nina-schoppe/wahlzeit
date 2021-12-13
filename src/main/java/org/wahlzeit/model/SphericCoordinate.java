@@ -13,10 +13,16 @@ public class SphericCoordinate extends AbstractCoordinate {
      * @param theta
      * @param radius
      */
-    public SphericCoordinate(double phi, double theta, double radius) {
-        assert !Double.isNaN(phi) && Math.abs(phi) <= Math.PI;
-        assert !Double.isNaN(theta) && theta >= 0 && theta <= Math.PI;
-        assert !Double.isNaN(radius) && radius >= 0;
+    public SphericCoordinate(double phi, double theta, double radius) throws IllegalStateException, IllegalArgumentException {
+        if(Double.isNaN(phi) || Math.abs(phi) > Math.PI) {
+            throw new IllegalArgumentException("Phi must be a value in the range of [- PI, PI], actual value is: " + phi);
+        }
+        if(Double.isNaN(theta) || theta < 0 || theta > Math.PI) {
+            throw new IllegalArgumentException("Theta must be a value in the range of [0, PI], actual value is: " + theta);
+        }
+        if(Double.isNaN(radius) || radius < 0) {
+            throw new IllegalArgumentException("Radius must be value >= 0, actual value is: " + radius);
+        }
 
         this.phi = phi;
         this.theta = theta;
@@ -25,10 +31,17 @@ public class SphericCoordinate extends AbstractCoordinate {
         assertClassInvariants();
     }
 
-    private void assertClassInvariants() {
-        assert !Double.isNaN(phi) && Math.abs(phi) <= Math.PI;
-        assert !Double.isNaN(theta) && theta >= 0 && theta <= Math.PI;
-        assert !Double.isNaN(radius) && radius >= 0;
+    @Override
+    protected void doAssertClassInvariants() throws IllegalStateException {
+        if (Double.isNaN(phi) || Math.abs(phi) > Math.PI) {
+            throw new IllegalStateException("Phi must be a value in the range of [- PI, PI], actual value is: " + phi);
+        }
+        if(Double.isNaN(theta) || theta < 0 || theta > Math.PI) {
+            throw new IllegalStateException("Theta must be a value in the range of [0, PI], actual value is: " + theta);
+        }
+        if(Double.isNaN(radius) || radius < 0) {
+            throw new IllegalStateException("Radius must be value >= 0, actual value is: " + radius);
+        }
     }
 
     /**
@@ -36,7 +49,8 @@ public class SphericCoordinate extends AbstractCoordinate {
      * 
      * @return double
      */
-    public double getPhi() {
+    public double getPhi() throws IllegalStateException {
+        assertClassInvariants();
         return phi;
     }
 
@@ -45,7 +59,8 @@ public class SphericCoordinate extends AbstractCoordinate {
      * 
      * @return double
      */
-    public double getTheta() {
+    public double getTheta() throws IllegalStateException {
+        assertClassInvariants();
         return theta;
     }
 
@@ -54,7 +69,8 @@ public class SphericCoordinate extends AbstractCoordinate {
      * 
      * @return double
      */
-    public double getRadius() {
+    public double getRadius() throws IllegalStateException {
+        assertClassInvariants();
         return radius;
     }
 
@@ -63,7 +79,7 @@ public class SphericCoordinate extends AbstractCoordinate {
      * @return String
      */
     @Override
-    public String toString() {
+    public String toString() throws IllegalStateException {
         assertClassInvariants();
         return "spheric coordinate: phi=" + phi + ", theta=" + theta + ", radius=" + radius;
     }
@@ -73,7 +89,8 @@ public class SphericCoordinate extends AbstractCoordinate {
      * @return SphericCoordinate
      */
     @Override
-    public SphericCoordinate asSphericCoordinate() {
+    public SphericCoordinate asSphericCoordinate() throws IllegalStateException {
+        assertClassInvariants();
         return this;
     }
 
@@ -81,7 +98,11 @@ public class SphericCoordinate extends AbstractCoordinate {
      * 
      */
     @Override
-    public double getCentralAngle(Coordinate coordinate) {
+    public double getCentralAngle(Coordinate coordinate) throws IllegalStateException, IllegalArgumentException {
+        assertClassInvariants();
+        if(coordinate == null) {
+            throw new IllegalArgumentException("Coordinate is not allowed to be null");
+        }
 
         assert coordinate != null;
 
@@ -104,7 +125,9 @@ public class SphericCoordinate extends AbstractCoordinate {
      * @return
      */
     @Override
-    public CartesianCoordinate asCartesianCoordinate() throws ArithmeticException {
+    public CartesianCoordinate asCartesianCoordinate() throws ArithmeticException, IllegalStateException {
+        assertClassInvariants();
+
         double x = radius * Math.sin(phi) * Math.cos(theta);
         double y = radius * Math.sin(phi) * Math.sin(theta);
         double z = radius * Math.cos(phi);
