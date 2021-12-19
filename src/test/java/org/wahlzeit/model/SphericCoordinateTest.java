@@ -34,7 +34,7 @@ public class SphericCoordinateTest {
     public void testAssertClassInvariantsPhi() {
         SphericCoordinate coordinate = new SphericCoordinate(0, 0, 0);
         try {
-            Field phiField = coordinate.getClass().getDeclaredField("phi");
+            Field phiField = coordinate.getClass().getDeclaredField("PHI");
             phiField.setAccessible(true);
             phiField.set(coordinate, -4);
             coordinate.assertClassInvariants();
@@ -47,7 +47,7 @@ public class SphericCoordinateTest {
     public void testAssertClassInvariantsTheta() {
         SphericCoordinate coordinate = new SphericCoordinate(0, 0, 0);
         try {
-            Field thetaField = coordinate.getClass().getDeclaredField("theta");
+            Field thetaField = coordinate.getClass().getDeclaredField("THETA");
             thetaField.setAccessible(true);
             thetaField.set(coordinate, 5);
             coordinate.assertClassInvariants();
@@ -60,7 +60,7 @@ public class SphericCoordinateTest {
     public void testAssertClassInvariantsRadius() {
         SphericCoordinate coordinate = new SphericCoordinate(0, 0, 0);
         try {
-            Field radiusField = coordinate.getClass().getDeclaredField("radius");
+            Field radiusField = coordinate.getClass().getDeclaredField("RADIUS");
             radiusField.setAccessible(true);
             radiusField.set(coordinate, -0.5);
             coordinate.assertClassInvariants();

@@ -30,7 +30,7 @@ public class CartesianCoordinateTest {
     public void testAssertClassInvariantsX() {
         CartesianCoordinate coordinate = new CartesianCoordinate(0, 0, 0);
         try {
-            Field xField = coordinate.getClass().getDeclaredField("x");
+            Field xField = coordinate.getClass().getDeclaredField("X");
             xField.setAccessible(true);
             xField.set(coordinate, Double.NaN);
             coordinate.assertClassInvariants();
@@ -44,7 +44,7 @@ public class CartesianCoordinateTest {
     public void testAssertClassInvariantsY() {
         CartesianCoordinate coordinate = new CartesianCoordinate(0, 0, 0);
         try {
-            Field yField = coordinate.getClass().getDeclaredField("y");
+            Field yField = coordinate.getClass().getDeclaredField("Y");
             yField.setAccessible(true);
             yField.set(coordinate, Double.NaN);
             coordinate.assertClassInvariants();
@@ -58,7 +58,7 @@ public class CartesianCoordinateTest {
     public void testAssertClassInvariantsZ() {
         CartesianCoordinate coordinate = new CartesianCoordinate(0, 0, 0);
         try {
-            Field zField = coordinate.getClass().getDeclaredField("z");
+            Field zField = coordinate.getClass().getDeclaredField("Z");
             zField.setAccessible(true);
             zField.set(coordinate, Double.NaN);
             coordinate.assertClassInvariants();
