@@ -1,10 +1,14 @@
 package org.wahlzeit.model;
 
+import java.util.LinkedList;
+
 public class SphericCoordinate extends AbstractCoordinate {
 
     private final double PHI;
     private final double THETA;
     private final double RADIUS;
+
+    private static LinkedList<SphericCoordinate> allCoordinates = new LinkedList<SphericCoordinate>();
 
     /**
      * @methodtype constructor
@@ -13,7 +17,16 @@ public class SphericCoordinate extends AbstractCoordinate {
      * @param theta
      * @param radius
      */
-    public SphericCoordinate(double phi, double theta, double radius) throws IllegalStateException, IllegalArgumentException {
+    private SphericCoordinate(double phi, double theta, double radius) throws IllegalStateException, IllegalArgumentException {
+        
+        this.PHI = phi;
+        this.THETA = theta;
+        this.RADIUS = radius;
+
+        assertClassInvariants();
+    }
+
+    public static synchronized SphericCoordinate getCoordinate(double phi, double theta, double radius) {
         if(Double.isNaN(phi) || Math.abs(phi) > Math.PI) {
             throw new IllegalArgumentException("Phi must be a value in the range of [- PI, PI], actual value is: " + phi);
         }
@@ -24,11 +37,14 @@ public class SphericCoordinate extends AbstractCoordinate {
             throw new IllegalArgumentException("Radius must be value >= 0, actual value is: " + radius);
         }
 
-        this.PHI = phi;
-        this.THETA = theta;
-        this.RADIUS = radius;
-
-        assertClassInvariants();
+        for(SphericCoordinate c: allCoordinates) {
+            if(Math.abs(c.getPhi() - phi) <= EPSILON && Math.abs(c.getTheta() - theta) <= EPSILON && Math.abs(c.getRadius() - radius) <= EPSILON) {
+                return c;
+            }
+        }
+        SphericCoordinate nc = new SphericCoordinate(phi, theta, radius);
+        allCoordinates.add(nc);
+        return nc;
     }
 
     @Override
@@ -136,6 +152,6 @@ public class SphericCoordinate extends AbstractCoordinate {
         assert !Double.isNaN(y);
         assert !Double.isNaN(z);
 
-        return new CartesianCoordinate(x, y, z);
+        return CartesianCoordinate.getCoordinate(x, y, z);
     }
 }

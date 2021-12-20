@@ -1,8 +1,8 @@
 package org.wahlzeit.model;
 
-public class CartesianCoordinate extends AbstractCoordinate {
+import java.util.LinkedList;
 
-    private final double EPSILON = 0.001;
+public class CartesianCoordinate extends AbstractCoordinate {
 
     /**
      * The x, y, z components of the CartesianCoordinate
@@ -11,11 +11,21 @@ public class CartesianCoordinate extends AbstractCoordinate {
     private final double Y;
     private final double Z;
 
+    private static LinkedList<CartesianCoordinate> allCoordinates = new LinkedList<CartesianCoordinate>();
+
     /**
      * 
      * @methodtype constructor
      */
-    public CartesianCoordinate(double x, double y, double z) throws IllegalStateException, IllegalArgumentException {
+    private CartesianCoordinate(double x, double y, double z) throws IllegalStateException, IllegalArgumentException {
+        this.X = x;
+        this.Y = y;
+        this.Z = z;
+        
+        assertClassInvariants();
+    }
+
+    public static synchronized CartesianCoordinate getCoordinate(double x, double y, double z) {
         if(Double.isNaN(x)) {
             throw new IllegalArgumentException("x is NaN");
         }
@@ -25,12 +35,16 @@ public class CartesianCoordinate extends AbstractCoordinate {
         if(Double.isNaN(z)) {
             throw new IllegalArgumentException("z is NaN");
         }
+        
+        for(CartesianCoordinate c: allCoordinates) {
+            if(Math.abs(c.getX() - x) <= EPSILON && Math.abs(c.getY() - y) <= EPSILON && Math.abs(c.getZ() - z) <= EPSILON) {
+                return c;
+            }
+        }
 
-        this.X = x;
-        this.Y = y;
-        this.Z = z;
-
-        assertClassInvariants();
+        CartesianCoordinate nc = new CartesianCoordinate(x, y, z);
+        allCoordinates.add(nc);
+        return nc;
     }
 
     protected void doAssertClassInvariants() throws IllegalStateException {
@@ -128,7 +142,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
         double radius = Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2) + Math.pow(Z, 2));
 
         if(radius <= EPSILON) {
-            return new SphericCoordinate(0, 0, 0);
+            return SphericCoordinate.getCoordinate(0, 0, 0);
         }
 
         double theta = Math.acos(Z / radius);
@@ -144,6 +158,6 @@ public class CartesianCoordinate extends AbstractCoordinate {
         assert !Double.isNaN(theta) && theta >= 0 && theta <= Math.PI;
         assert !Double.isNaN(radius) && radius >= 0;
 
-        return new SphericCoordinate(phi, theta, radius);
+        return SphericCoordinate.getCoordinate(phi, theta, radius);
     }
 }
