@@ -13,8 +13,8 @@ public class PhotoTest {
 
     @Test
     public void testConstructor() {
-        CartesianCoordinate cartesianCoordinate1 = new CartesianCoordinate(0.5, 7.8, 1.9);
-        CartesianCoordinate cartesianCoordinate2 = new CartesianCoordinate(0.5, 3, 7.2);
+        CartesianCoordinate cartesianCoordinate1 = CartesianCoordinate.getCoordinate(0.5, 7.8, 1.9);
+        CartesianCoordinate cartesianCoordinate2 = CartesianCoordinate.getCoordinate(0.5, 3, 7.2);
         Location location1 = new Location(cartesianCoordinate1);
         Location location2 = new Location(cartesianCoordinate2);
         Photo photo1 = new Photo(location1);
@@ -44,7 +44,7 @@ public class PhotoTest {
     @Test
     public void testSetLocation() {
         Photo photo = new Photo();
-        Location location = new Location(new CartesianCoordinate(1, 1, 1));
+        Location location = new Location(CartesianCoordinate.getCoordinate(1, 1, 1));
         assertNull(photo.getLocation());
         photo.setLocation(location);
         assertEquals(location, photo.getLocation());
