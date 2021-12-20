@@ -1,7 +1,6 @@
 package org.wahlzeit.model;
 
 import org.junit.Test;
-import java.lang.reflect.Field;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -15,7 +14,7 @@ public class CartesianCoordinateTest {
         double x = 1.1;
         double y = 3;
         double z = 2.2;
-        CartesianCoordinate c = new CartesianCoordinate(x, y, z);
+        CartesianCoordinate c = CartesianCoordinate.getCoordinate(x, y, z);
         assertEquals(x, c.getX(), 0);
         assertEquals(y, c.getY(), 0);
         assertEquals(z, c.getZ(), 0);
@@ -23,57 +22,15 @@ public class CartesianCoordinateTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testConstructorPrecondition() {
-        new CartesianCoordinate(Double.NaN, 1, 0);
-    }
-
-    @Test(expected = IllegalStateException.class)
-    public void testAssertClassInvariantsX() {
-        CartesianCoordinate coordinate = new CartesianCoordinate(0, 0, 0);
-        try {
-            Field xField = coordinate.getClass().getDeclaredField("x");
-            xField.setAccessible(true);
-            xField.set(coordinate, Double.NaN);
-            coordinate.assertClassInvariants();
-        } catch(NoSuchFieldException | IllegalAccessException e) {
-            // do nothing
-        }
-
-    }
-
-    @Test(expected = IllegalStateException.class)
-    public void testAssertClassInvariantsY() {
-        CartesianCoordinate coordinate = new CartesianCoordinate(0, 0, 0);
-        try {
-            Field yField = coordinate.getClass().getDeclaredField("y");
-            yField.setAccessible(true);
-            yField.set(coordinate, Double.NaN);
-            coordinate.assertClassInvariants();
-        } catch(NoSuchFieldException | IllegalAccessException e) {
-            // do nothing
-        }
-
-    }
-
-    @Test(expected = IllegalStateException.class)
-    public void testAssertClassInvariantsZ() {
-        CartesianCoordinate coordinate = new CartesianCoordinate(0, 0, 0);
-        try {
-            Field zField = coordinate.getClass().getDeclaredField("z");
-            zField.setAccessible(true);
-            zField.set(coordinate, Double.NaN);
-            coordinate.assertClassInvariants();
-        } catch(NoSuchFieldException | IllegalAccessException e) {
-            // do nothing
-        }
-
+        CartesianCoordinate.getCoordinate(Double.NaN, 1, 0);
     }
 
     @Test
     public void testGetCartesianDistance() {
-        CartesianCoordinate c1 = new CartesianCoordinate(1, 2, 3);
-        CartesianCoordinate c2 = new CartesianCoordinate(1, 2, 3);
-        CartesianCoordinate c3 = new CartesianCoordinate(-3, 5, 3);
-        CartesianCoordinate c4 = new CartesianCoordinate(-3, 5, -4);
+        CartesianCoordinate c1 = CartesianCoordinate.getCoordinate(1, 2, 3);
+        CartesianCoordinate c2 = CartesianCoordinate.getCoordinate(1, 2, 3);
+        CartesianCoordinate c3 = CartesianCoordinate.getCoordinate(-3, 5, 3);
+        CartesianCoordinate c4 = CartesianCoordinate.getCoordinate(-3, 5, -4);
         assertEquals(0, c1.getCartesianDistance(c2), 0);
         assertEquals(5, c1.getCartesianDistance(c3), 0);
         assertEquals(7, c3.getCartesianDistance(c4), 0);
@@ -81,9 +38,9 @@ public class CartesianCoordinateTest {
     
     @Test
     public void testIsEqual() {
-        CartesianCoordinate c1 = new CartesianCoordinate(1, 2, 3);
-        CartesianCoordinate c2 = new CartesianCoordinate(1, 2, 3);
-        CartesianCoordinate c3 = new CartesianCoordinate(-3, 5, 3);
+        CartesianCoordinate c1 = CartesianCoordinate.getCoordinate(1, 2, 3);
+        CartesianCoordinate c2 = CartesianCoordinate.getCoordinate(1, 2, 3);
+        CartesianCoordinate c3 = CartesianCoordinate.getCoordinate(-3, 5, 3);
         CartesianCoordinate c4 = null;
         assertTrue(c1.isEqual(c1));
         assertTrue(c1.isEqual(c2));
@@ -93,9 +50,9 @@ public class CartesianCoordinateTest {
 
     @Test
     public void testEquals() {
-        CartesianCoordinate c1 = new CartesianCoordinate(2, 1, 0.3);
-        CartesianCoordinate c2 = new CartesianCoordinate(2, 1, 0.3);
-        CartesianCoordinate c3 = new CartesianCoordinate(-3.1, 5.2, 3);
+        CartesianCoordinate c1 = CartesianCoordinate.getCoordinate(2, 1, 0.3);
+        CartesianCoordinate c2 = CartesianCoordinate.getCoordinate(2, 1, 0.3);
+        CartesianCoordinate c3 = CartesianCoordinate.getCoordinate(-3.1, 5.2, 3);
         CartesianCoordinate c4 = null;
         String s1 = "test";
         assertTrue(c1.equals(c1));
@@ -107,7 +64,7 @@ public class CartesianCoordinateTest {
 
     @Test
     public void testAsSphericCoordinate() {
-        CartesianCoordinate c1 = new CartesianCoordinate(1, 1, 1);
+        CartesianCoordinate c1 = CartesianCoordinate.getCoordinate(1, 1, 1);
         SphericCoordinate c2 = c1.asSphericCoordinate();
         assertEquals(0.7854, c2.getPhi(), 0.0001);
         assertEquals(0.9553, c2.getTheta(), 0.0001);
@@ -116,14 +73,14 @@ public class CartesianCoordinateTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testGetCartesianDistancePrecondition() {
-        CartesianCoordinate c = new CartesianCoordinate(1, 2, 3);
+        CartesianCoordinate c = CartesianCoordinate.getCoordinate(1, 2, 3);
         c.getCartesianDistance(null);
     }
 
 
     @Test(expected = IllegalArgumentException.class)
     public void testGetCentralAnglePrecondition() {
-        CartesianCoordinate c = new CartesianCoordinate(1, 2, 3);
+        CartesianCoordinate c = CartesianCoordinate.getCoordinate(1, 2, 3);
         c.getCentralAngle(null);
     }
 }

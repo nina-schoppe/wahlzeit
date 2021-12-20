@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public abstract class AbstractCoordinate implements Coordinate {
     
-    private final double EPSILON = 0.001;
+    protected static final double EPSILON = 0.001;
 
     @Override
     public abstract SphericCoordinate asSphericCoordinate() throws ArithmeticException, IllegalStateException;
@@ -32,10 +32,7 @@ public abstract class AbstractCoordinate implements Coordinate {
         CartesianCoordinate c2 = coordinate.asCartesianCoordinate();
         c2.assertClassInvariants();
 
-        boolean xEqual = Math.abs(c1.getX() - c2.getX()) <= EPSILON;
-        boolean yEqual = Math.abs(c1.getY() - c2.getY()) <= EPSILON;
-        boolean zEqual = Math.abs(c1.getZ() - c2.getZ()) <= EPSILON;
-        return xEqual && yEqual && zEqual;
+        return c1 == c2;
     }
 
     /**
@@ -54,9 +51,7 @@ public abstract class AbstractCoordinate implements Coordinate {
      */
     @Override
     public int hashCode() throws IllegalStateException {
-        assertClassInvariants();
-        CartesianCoordinate cartesianCoordinate = this.asCartesianCoordinate();
-        return Objects.hash(cartesianCoordinate.getX(), cartesianCoordinate.getY(), cartesianCoordinate.getZ());
+        return asCartesianCoordinate().hashCode();
     }
 
     /**
