@@ -6,10 +6,18 @@
 package org.wahlzeit.main;
 
 import org.wahlzeit.agents.AgentManager;
+import org.wahlzeit.annotations.PatternInstance;
 import org.wahlzeit.handlers.*;
 import org.wahlzeit.model.*;
 import org.wahlzeit.webparts.*;
 import org.wahlzeit.services.*;
+
+@PatternInstance(
+	patternName = "Facade",
+	participants = {
+		"Facade"
+	}
+)
 
 /**
  * A Main class that runs a Wahlzeit web server.
