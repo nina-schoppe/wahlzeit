@@ -8,7 +8,12 @@ package org.wahlzeit.handlers;
 import org.wahlzeit.model.AccessRights;
 import org.wahlzeit.model.UserSession;
 import org.wahlzeit.webparts.WebPart;
+import org.wahlzeit.annotations.*;
 
+@PatternInstance(
+	patternName = "Null Object",
+	participants = {"Real Object", "Null Object"}
+)
 
 /**
  * A handler class for a null web form.

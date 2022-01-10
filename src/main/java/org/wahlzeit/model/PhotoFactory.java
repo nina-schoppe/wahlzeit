@@ -7,7 +7,13 @@ package org.wahlzeit.model;
 
 import java.sql.*;
 
+import org.wahlzeit.annotations.PatternInstance;
 import org.wahlzeit.services.*;
+
+@PatternInstance(
+	patternName = "Singleton",
+	participants = {"Instance"}
+)
 
 /**
  * An Abstract Factory for creating photos and related objects.

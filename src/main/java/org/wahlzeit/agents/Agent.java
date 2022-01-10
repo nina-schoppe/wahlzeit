@@ -6,7 +6,12 @@
 package org.wahlzeit.agents;
 
 import org.wahlzeit.services.*;
+import org.wahlzeit.annotations.*;
 
+@PatternInstance(
+	patternName = "Observer",
+	participants = {"Observer", "ConcreteObserver"}
+)
 /**
  * An Agent executes background tasks.
  */

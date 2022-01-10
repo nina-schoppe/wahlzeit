@@ -2,6 +2,13 @@ package org.wahlzeit.model;
 
 import java.util.LinkedList;
 
+import org.wahlzeit.annotations.PatternInstance;
+
+@PatternInstance(
+    patternName = "Value Object",
+    participants = {"Values"}
+)
+
 public class SphericCoordinate extends AbstractCoordinate {
 
     private final double PHI;
