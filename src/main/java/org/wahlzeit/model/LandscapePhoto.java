@@ -4,12 +4,23 @@ import java.sql.*;
 
 public class LandscapePhoto extends Photo {
 
+    private Landscape landscape;
+
     /**
 	 * 
 	 * @methodtype constructor
 	 */
     public LandscapePhoto() {
         super();
+    }
+
+    /**
+	 * 
+	 * @methodtype constructor
+	 */
+    public LandscapePhoto(Landscape landscape) {
+        super();
+        this.landscape = landscape;
     }
 
     /**
@@ -42,6 +53,10 @@ public class LandscapePhoto extends Photo {
 	 */
     public LandscapePhoto(ResultSet rset) throws SQLException, IllegalArgumentException {
         super(rset);
+    }
+    
+    public void setLandscape(Landscape landscape) {
+        this.landscape = landscape;
     }
     
 }
