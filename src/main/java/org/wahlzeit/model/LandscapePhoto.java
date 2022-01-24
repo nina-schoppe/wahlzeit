@@ -6,6 +6,8 @@ public class LandscapePhoto extends Photo {
 
     private Landscape landscape;
 
+    // LandscapePhotos constructors which instantiate LandscapePhotos
+
     /**
 	 * 
 	 * @methodtype constructor

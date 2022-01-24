@@ -19,7 +19,8 @@ public class LandscapeType {
     this.typeName = typeName;
     subTypes = new HashSet<LandscapeType>();
   }
-    
+   
+  // call to Landscapes constructor to createn a Landscape instance that references this LandscapType
   /**
    * 
    * @return
