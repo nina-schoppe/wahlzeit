@@ -3,6 +3,12 @@ package org.wahlzeit.model;
 import java.util.HashSet;
 import java.util.Iterator;
 
+/**
+ * LandscapeObject / LandscapeObjectType collaboration
+ * Collaboration Type:
+ * Binds: Landscape
+ * Role: type object
+ */
 public class LandscapeType {
     
   private LandscapeType superType;

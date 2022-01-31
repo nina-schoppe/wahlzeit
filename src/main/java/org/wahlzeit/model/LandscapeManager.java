@@ -2,6 +2,11 @@ package org.wahlzeit.model;
 
 import java.util.HashMap;
 
+/**
+ * LandscapeManager / Landscape Collaboration
+ * Binds: Landscape
+ * Role: Manager
+ */
 public class LandscapeManager {
 
     protected static final LandscapeManager instance = new LandscapeManager();

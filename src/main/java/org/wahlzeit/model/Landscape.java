@@ -1,5 +1,21 @@
 package org.wahlzeit.model;
 
+/**
+ * LandscapeObject / LandscapeObjectType collaboration
+ * Collaboration Type:
+ * Binds: LandscapeType
+ * Role: Base Object
+ * 
+ * LandscapePhoto / Landscape Collaboration
+ * Collaboration Type:
+ * Binds: LandscapePhoto
+ * Role: Service
+ * 
+ * LandscapeManager / Landscape Collaboration
+ * Collaboration Type:
+ * Binds: Landscape Manager
+ * Role: Element
+ */
 public class Landscape {
 
     private static int numberOfInstances = 0;

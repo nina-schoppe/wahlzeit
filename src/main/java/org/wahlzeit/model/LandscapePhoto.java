@@ -2,6 +2,10 @@ package org.wahlzeit.model;
 
 import java.sql.*;
 
+/**
+ * LandscapePhoto / Landscape Collaboration
+ * Role: client
+ */
 public class LandscapePhoto extends Photo {
 
     private Landscape landscape;
